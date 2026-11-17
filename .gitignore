@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+run/
+data/
+*.parquet
+*.npy
+*.pkl
+*.joblib
+*.csv.gz
+*.log
+
+.publication_private/
