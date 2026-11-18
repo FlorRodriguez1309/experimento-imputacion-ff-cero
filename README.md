@@ -14,6 +14,8 @@ La pregunta es si completar con **cero los faltantes que sobreviven al forward f
 
 ## Diseño
 
+Para estudiar el trabajo desde cero: [Un dato a la vez · clase interactiva](https://florrodriguez1309.github.io/experimento-imputacion-ff-cero/aprender/). Incluye ejemplos de AUC, FF, ganancia y Holm, un diccionario y práctica oral de las slides 1–6.
+
 - Entrenamiento final: marzo–agosto de 2019. Test: octubre de 2019.
 - 30 semillas comunes por método. La tabla alineada combina 90 entrenamientos locales de E0/E4/FF_ZERO y 30 evaluaciones publicadas por Mica. La corrida local original tuvo 120 entrenamientos, incluido un control de mediana distinto, conservado en el archivo histórico.
 - LightGBM, 280 árboles, N = 4.323 contactos e hiperparámetros congelados de Exp1. Sin nueva optimización.

@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {auc,forwardFill,median,gain,holm} from '../docs/aprender/math.mjs';
+import {lessons,speeches} from '../docs/aprender/lessons.mjs';
+
+assert.deepEqual(forwardFill([null,80,null,null,120,null]),[null,80,80,80,120,120]);
+assert.deepEqual(forwardFill([80,null,null,null],2),[80,80,80,null]);
+assert.equal(median([0,null,null,100]),50);
+assert.equal(median(forwardFill([0,null,null,100])),0);
+assert.equal(auc([{y:1,score:2},{y:0,score:1}]).value,1);
+assert.equal(auc([{y:1,score:1},{y:0,score:2}]).value,0);
+assert.equal(auc([{y:1,score:1},{y:0,score:1}]).value,.5);
+assert.equal(auc([{y:1,score:4},{y:0,score:3},{y:1,score:2},{y:0,score:1}]).value,.75);
+assert.equal(gain(377,4323),295817500);
+assert.equal(gain(0,0),0);
+assert.equal(gain(0,1),-27500);
+assert.equal(gain(1,1),1072500);
+assert.deepEqual(holm([.01,.03,.04]),[.03,.06,.06]);
+assert.deepEqual(holm([.04,.01,.03]),[.06,.03,.06]);
+assert.deepEqual(holm([.6,.9]),[1,1]);
+assert.equal(new Set(lessons.map(l=>l.id)).size,lessons.length);
+assert.equal(speeches.length,6);
+
+const data=JSON.parse(await readFile(new URL('../docs/presentacion/resultados.json',import.meta.url),'utf8'));
+for(const row of data.summary) assert.equal(gain(row.baja2_ensemble,row.n),row.gain_ensemble);
+const positives=data.tests.filter(t=>['EXP1','EXP2'].includes(t.family)&&t.reference==='E0'&&t.metric==='gain_at_n_fijo'&&t.significant_005&&t.delta_mean>0);
+assert.equal(positives.length,1);
+assert.equal(positives[0].method,'E5');assert.equal(positives[0].family,'EXP2');assert.equal(positives[0].delta_mean,5170000);
+assert.equal(data.tests.filter(t=>t.family==='EXP1'&&t.reference==='E4'&&t.metric==='gain_at_n_fijo'&&t.significant_005&&t.delta_mean>0).length,0);
+console.log(`OK: cálculos educativos, ${lessons.length} lecciones, 6 discursos y conclusiones contra el consolidado.`);
