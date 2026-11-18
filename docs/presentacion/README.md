@@ -45,3 +45,7 @@ Si se actualizan resultados, hay que revisar también las cifras destacadas en `
 La portada identifica a Agustín Bernacchia, Micaela Rocío Rodríguez y Florencia Rodríguez. La primera aparición de E0 y de EXP1/EXP2 incluye su significado completo. La diapositiva de métricas distingue el ranking completo (AUC, BAJA+1/BAJA+2) de la campaña a N fijo (ganancia, recompensa solo para BAJA+2).
 
 Los 280 y 361 árboles proceden de selecciones independientes sobre el E0 de cada experimento. Comparar EXP1 y EXP2 no aísla el efecto de los indicadores. Queda propuesta una comparación con y sin indicadores y sus derivados usando los mismos datos, semillas, hiperparámetros, árboles y N. No se ejecutaron nuevas corridas para esta actualización editorial.
+
+## Speech por diapositiva
+
+El botón **Speech**, junto a **Fuentes**, abre un guion oral para la diapositiva actual. Los 19 guiones están en `speech.js`; los de resultados incorporan la selección visible de experimento y métrica desde `app.js`. Las referencias se mantienen separadas en Fuentes. Los guiones explican las limitaciones y no presentan experimentos pendientes como completados.

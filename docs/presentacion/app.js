@@ -36,6 +36,19 @@ $('#close-dialog').addEventListener('click',()=>$('#detail-dialog').close());
 $('#detail-dialog').addEventListener('close',()=>dialogTrigger?.focus());
 $('#detail-dialog').addEventListener('click',e=>{if(e.target===$('#detail-dialog'))$('#detail-dialog').close();});
 $('#sources-button').addEventListener('click',()=>showDialog('Fuentes',sources(slides[active].dataset.source)));
+$('#speech-button').addEventListener('click',()=>{
+  const slide=slides[active];
+  const paragraphs=[...speeches[slide.id]];
+  if(slide.id==='ganancia') paragraphs.push(chartFamily==='EXP1'
+    ? 'Ahora está seleccionado EXP1. Ridge queda por encima de la referencia, pero esa mejora no es concluyente con el ajuste actual. miceforest muestra una reducción de ganancia con evidencia en el contraste.'
+    : 'Ahora está seleccionado EXP2. Ridge muestra una diferencia media de unos 5,17 millones de pesos a favor, con evidencia después del ajuste de Holm.');
+  if(slide.id==='ensambles') paragraphs.push('Ahora vemos '+ensembleFamily+' y '+(ensembleMetric==='gain'
+    ? 'la ganancia. Entre estos ocho métodos base, Ridge tiene la mayor ganancia observada.'
+    : 'el AUC. Entre estos ocho métodos base, '+(ensembleFamily==='EXP1'?'Ridge tiene el mayor AUC observado.':'ceros directos tiene el mayor AUC observado.')));
+  showDialog('Speech · '+String(active+1).padStart(2,'0')+' · '+slide.dataset.title,
+    '<div class="speech-copy">'+paragraphs.map(p=>'<p>'+escapeHTML(p)+'</p>').join('')+'</div>');
+});
+
 $('#prev-button').addEventListener('click',()=>go(active-1));$('#next-button').addEventListener('click',()=>go(active+1));
 $('#fullscreen-button').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{showDialog('Pantalla completa','<p>Podés usar la opción de pantalla completa del navegador.</p>');}});
 if(readMode){document.body.classList.add('read-mode');$('#reading-link').textContent='Presentar';$('#reading-link').href=location.pathname;const io=new IntersectionObserver(entries=>{const index=slides.findIndex(s=>s.getBoundingClientRect().bottom>120);if(index>=0)setActive(index);},{rootMargin:'-60px 0px -25% 0px',threshold:[0,.15,.4]});slides.forEach(s=>io.observe(s));if(matchMedia('(max-width:700px)').matches)$('#reading-link').style.display='none';}

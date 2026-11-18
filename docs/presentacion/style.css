@@ -23,3 +23,5 @@ body.read-mode{overflow:auto!important;height:auto!important}.read-mode .reveal{
 .family-columns .family-purpose{color:var(--ink);font-weight:600;font-size:24px;margin-bottom:20px}@media(max-width:700px){.family-columns .family-purpose{font-size:20px}}
 
 #metricas .editorial h3{min-height:76px}#metricas .editorial p{font-size:25px}@media(max-width:700px){#metricas .editorial h3{min-height:0}#metricas .editorial p{font-size:20px}}
+
+#dialog-content .speech-copy{max-width:780px;margin:0 auto}#dialog-content .speech-copy p{font-size:21px;line-height:1.65;color:var(--ink);margin:0 0 24px}.bottom-bar .support-actions{gap:22px}@media(max-width:700px){#dialog-content .speech-copy p{font-size:18px}.bottom-bar .support-actions{gap:16px}}
