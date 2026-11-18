@@ -9,7 +9,7 @@ const pformat = p => p<.001 ? p.toExponential(2).replace('.',',') : fmt(p,3);
 const escapeHTML = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let active = 0, data, chartFamily = 'EXP1', ensembleFamily = 'EXP1', ensembleMetric = 'gain';
 let dialogTrigger;
-const labels = {E0:'NaN nativo',E1:'Media',E2:'Mediana',E3:'Moda',E4:'Forward fill',E5:'Ridge iterativo',E6:'miceforest',ZERO:'Ceros directos',FF_IND:'FF + indicadores',FF_MED_POST:'FF + mediana posterior',FF_LIMIT2ROWS:'FF límite 2 filas',FF_ZERO:'FF + cero',FF_MED_PRE:'FF + mediana previa'};
+const labels = {E0:'NaN nativo',E1:'Media',E2:'Mediana',E3:'Moda',E4:'Forward fill',E5:'Ridge iterativo',E6:'miceforest',ZERO:'Ceros directos',FF_IND:'FF + indicadores + cantidad de nulos',FF_MED_POST:'FF + mediana posterior',FF_LIMIT2ROWS:'FF límite 2 filas',FF_ZERO:'FF + cero',FF_MED_PRE:'FF + mediana previa'};
 const baseMethods=['E0','E1','E2','E3','E4','E5','E6','ZERO'];
 const ffMethods=['FF_IND','FF_MED_POST','FF_LIMIT2ROWS','FF_ZERO','FF_MED_PRE'];
 const repo='https://github.com/FlorRodriguez1309/experimento-imputacion-ff-cero';
@@ -67,7 +67,7 @@ function chartSVG(rows,{domain,ticks,format,caption,zero=0,pvalues=false,valueTi
  if(zero>=domain[0]&&zero<=domain[1])out+=`<line class="baseline" x1="${x(zero)}" x2="${x(zero)}" y1="${top-13}" y2="${bottom}"/>`;
  if(pvalues)out+=`<text class="axis" x="1188" y="18" text-anchor="end">p Holm</text>`;
  if(valueTitle)out+=`<text class="axis" x="left" y="18">${escapeHTML(valueTitle)}</text>`;
- rows.forEach((r,i)=>{const y=top+rowH*(i+.5);const label=labels[r.method];const detail=escapeHTML(JSON.stringify(r));const value=format(r.value);out+=`<g tabindex="0" role="button" aria-label="${escapeHTML(label)}, ${value}${pvalues?', p Holm '+pformat(r.p):''}. Ver detalle" data-detail="${detail}"><title>${escapeHTML(label)}: ${value}${pvalues?' · p Holm '+pformat(r.p):''}</title><text x="0" y="${y+6}">${escapeHTML(label)}</text>`;
+ rows.forEach((r,i)=>{const y=top+rowH*(i+.5);const label=labels[r.method];const detail=escapeHTML(JSON.stringify(r));const value=format(r.value);out+=`<g tabindex="0" role="button" aria-label="${escapeHTML(label)}, ${value}${pvalues?', p Holm '+pformat(r.p):''}. Ver detalle" data-detail="${detail}"><title>${escapeHTML(label)}: ${value}${pvalues?' · p Holm '+pformat(r.p):''}</title><text x="0" y="${r.method==='FF_IND'?y-7:y+6}">${r.method==='FF_IND'?'<tspan x="0">FF + indicadores</tspan><tspan x="0" dy="24">+ cantidad de nulos</tspan>':escapeHTML(label)}</text>`;
  if(zero>=domain[0]&&zero<=domain[1])out+=`<line class="stem" x1="${x(zero)}" x2="${x(r.value)}" y1="${y}" y2="${y}"/>`;
  out+=`<circle class="${pvalues&&r.p>=.05?'dot-muted':'dot'}" cx="${x(r.value)}" cy="${y}" r="6"/><text class="value" x="${r.value<zero?x(r.value)-14:Math.min(1090,x(r.value)+14)}" text-anchor="${r.value<zero?'end':'start'}" y="${y+6}">${value}</text>`;
  if(pvalues)out+=`<text class="p-value ${r.p<.05?'significant':''}" x="1188" y="${y+6}" text-anchor="end">${pformat(r.p)}</text>`;out+='</g>';});return out+'</svg>';

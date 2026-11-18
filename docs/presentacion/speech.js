@@ -44,7 +44,7 @@ const speeches = {
     'Por eso la ganancia del ensamble puede ser distinta del promedio de las ganancias individuales. Con los controles podemos cambiar de experimento y de métrica. Las diferencias del gráfico son descriptivas: los tests por semilla que mostramos antes no prueban diferencias entre estos ensambles.'
   ],
   variantes: [
-    'Acá nos concentramos en las cinco extensiones de forward fill y las comparamos contra forward fill solo, dentro de EXP1. Probamos sumar indicadores, completar con una mediana o con cero, y limitar el arrastre a dos filas.',
+    'Acá nos concentramos en las cinco extensiones de forward fill y las comparamos contra forward fill solo, dentro de EXP1. Probamos sumar indicadores y cantidad de nulos, completar con una mediana o con cero, y limitar el arrastre a dos filas. La variante con indicadores usa la configuración de EXP1 y agrega un contador de faltantes por fila. Es distinta del forward fill de EXP2, que usa otro conjunto de columnas y otra configuración.',
     'El gráfico muestra la diferencia de ganancia media por semilla. Algunas variantes quedan por encima de la referencia, pero ninguna demuestra una mejora de ganancia después del ajuste de Holm. Eso no significa que sean idénticas: significa que esta comparación no aporta evidencia suficiente para afirmar una mejora.'
   ],
   'ff-cero': [
@@ -70,10 +70,11 @@ const speeches = {
   ],
   limites: [
     'Los resultados tienen límites. Evaluamos un solo mes y elegimos los parámetros sobre E0, de modo que esa configuración podría favorecer al control. Además, reutilizar el test para mirar nuevas variantes puede influir en las decisiones posteriores.',
+    'En la variante de forward fill con indicadores también agregamos la cantidad de nulos. La comparación evalúa ese conjunto de cambios, pero no permite separar cuánto aporta cada componente. Para hacerlo necesitamos controles con las mismas columnas y cambiar un componente a la vez.',
     'También queda pendiente contrastar los ensambles de las variantes FF con predicciones alineadas por cliente. El histórico de marzo a junio se conserva aparte porque cambia el entrenamiento y no tenemos la identidad completa de esa corrida. Por eso no mezclamos todos los resultados como si fueran una única comparación.'
   ],
   conclusiones: [
-    'La conclusión es que imputar puede ayudar, pero el resultado depende del método y de la configuración. En EXP2, Ridge muestra una mejora de ganancia frente al modelo sin imputación: la diferencia media es de unos 5,17 millones, con evidencia en el contraste pareado. Las extensiones de forward fill no muestran una mejora concluyente de ganancia frente a forward fill solo.',
+    'La conclusión es que imputar puede ayudar, pero el resultado depende del método y de la configuración. Entre los experimentos actuales, EXP1 y EXP2, Ridge en EXP2 es la única mejora significativa de ganancia frente a E0 con el ajuste de Holm. La diferencia media es de unos 5,17 millones. También hay una diferencia significativa para miceforest en EXP1, pero es una caída de ganancia. Las extensiones de forward fill no muestran una mejora concluyente de ganancia frente a forward fill solo.',
     'El próximo paso es repetir en otra ventana temporal. Para aislar el aporte de los indicadores, necesitamos comparar con y sin ellos manteniendo los mismos parámetros, árboles y número de contactos. Esa comparación todavía no está hecha.'
   ],
   fuentes: [
