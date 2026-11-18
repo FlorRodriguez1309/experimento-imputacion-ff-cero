@@ -26,12 +26,12 @@
 <section id="tiempo" data-title="Diseño temporal" data-source="design">
  <p class="eyebrow">02 / DISEÑO</p><h2>El tiempo organiza<br>la comparación</h2>
  <div class="timeline" aria-label="Entrenamiento marzo a agosto, test octubre de 2019"><div class="history">Ene–Feb<small>Historia</small></div><div class="train">Marzo–Agosto<small>Entrenamiento final e imputadores</small></div><div class="history">Sep<small>Historia</small></div><div class="test">Octubre<small>Test</small></div></div>
- <div class="two compact"><div><h3>Selección en E0</h3><p>50 pruebas de Optuna<br>Train marzo–junio · validación agosto</p></div><div><h3>Comparación congelada</h3><p>Mismos hiperparámetros y N<br>30 semillas comunes por método</p></div></div>
+ <div class="two compact"><div><h3>Configuración elegida con el<br>modelo sin imputación (E0)</h3><p>50 pruebas de Optuna<br>Train marzo–junio · validación agosto</p></div><div><h3>Comparación congelada</h3><p>Mismos hiperparámetros y N<br>30 semillas comunes por método</p></div></div>
  <p class="bottom-note">2019. Auditoría compartida de ceros. Noviembre y diciembre definen el target de octubre.</p>
 </section>
 <section id="familias" data-title="Dos familias experimentales" data-source="design">
  <p class="eyebrow">02 / DISEÑO</p><h2>Dos familias,<br>dos condiciones</h2>
- <div class="two family-columns"><div><h3><span class="accent">EXP1</span> Imputación</h3><p>150 variables base<br>+ sus lags y deltas</p><div class="specs"><div><b>280</b><small>árboles</small></div><div><b>4.323</b><small>contactos</small></div></div></div><div><h3><span class="accent">EXP2</span> + Ausencia</h3><p>EXP1 + 150 indicadores<br>+ 300 lags y 300 deltas de indicadores</p><div class="specs"><div><b>361</b><small>árboles</small></div><div><b>4.352</b><small>contactos</small></div></div></div></div>
+ <div class="two family-columns"><div><h3><span class="accent">Experimento 1 (EXP1)</span></h3><p class="family-purpose">Imputación</p><p>150 variables base<br>+ sus lags y deltas</p><div class="specs"><div><b>280</b><small>árboles</small></div><div><b>4.323</b><small>contactos</small></div></div></div><div><h3><span class="accent">Experimento 2 (EXP2)</span></h3><p class="family-purpose">Imputación + indicadores de ausencia</p><p>EXP1 + 150 indicadores<br>+ 300 lags y 300 deltas de indicadores</p><div class="specs"><div><b>361</b><small>árboles</small></div><div><b>4.352</b><small>contactos</small></div></div></div></div>
  <p class="bottom-note">Comparación entre familias: descriptiva. Cambian los predictores, los parámetros y N.</p>
 </section>
 <section id="metodos" data-title="Ocho métodos base" data-source="methods">
