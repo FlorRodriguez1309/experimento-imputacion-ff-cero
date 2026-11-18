@@ -27,3 +27,10 @@ body.read-mode{overflow:auto!important;height:auto!important}.read-mode .reveal{
 #dialog-content .speech-copy{max-width:780px;margin:0 auto}#dialog-content .speech-copy p{font-size:21px;line-height:1.65;color:var(--ink);margin:0 0 24px}.bottom-bar .support-actions{gap:22px}@media(max-width:700px){#dialog-content .speech-copy p{font-size:18px}.bottom-bar .support-actions{gap:16px}}
 
 #limites .limit-list>div{padding:17px 0}#limites .limit-list b{font-size:25px}#conclusiones .conclusion p{font-size:24px}@media(max-width:700px){#limites .limit-list b{font-size:22px}#conclusiones .conclusion p{font-size:20px}}
+
+/* Keep the lower-left recording area clear of slides and controls. */
+@media screen and (min-width:701px){
+ body:not(.read-mode){--camera-gutter:clamp(220px,22vw,300px)}
+ body:not(.read-mode) .reveal{position:absolute;left:var(--camera-gutter);right:0;width:auto}
+ body:not(.read-mode) .bottom-bar{left:calc(var(--camera-gutter) + 24px)}
+}

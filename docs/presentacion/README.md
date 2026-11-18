@@ -49,3 +49,7 @@ Los 280 y 361 árboles proceden de selecciones independientes sobre el E0 de cad
 ## Speech por diapositiva
 
 El botón **Speech**, junto a **Fuentes**, abre un guion oral para la diapositiva actual. Los 19 guiones están en `speech.js`; los de resultados incorporan la selección visible de experimento y métrica desde `app.js`. Las referencias se mantienen separadas en Fuentes. Los guiones explican las limitaciones y no presentan experimentos pendientes como completados.
+
+## Espacio para cámara al grabar
+
+En modo presentación de escritorio, el contenido y los controles dejan libre la esquina inferior izquierda. Ubicar allí la cámara del grabador, con un ancho máximo de 200 px en ventanas pequeñas o 260 px en ventanas de al menos 1280 px. El espacio no muestra un marco ni activa la cámara: cada participante coloca su imagen desde la herramienta de grabación. El modo de lectura y la vista móvil mantienen su distribución original.
