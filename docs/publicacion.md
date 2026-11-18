@@ -20,3 +20,9 @@ Cambios respecto del paquete original:
 La variante FF_ZERO conserva su implementación y sus resultados. La adaptación se comprobó con pruebas unitarias; no se volvió a ejecutar el entrenamiento completo de 30 semillas del control de mediana.
 
 Las rutas absolutas personales se sustituyeron por [ruta_local] en las copias públicas del protocolo e identidad originales. Los hashes registrados describen los originales guardados localmente, no esas copias con rutas omitidas.
+
+## Actualización del 18 de noviembre de 2026
+
+A pedido de la autora, se publica una [release para comparar ensambles](https://github.com/FlorRodriguez1309/experimento-imputacion-ff-cero/releases/tag/datos-ff-cero-2026-11-18) con las 30 predicciones individuales de FF_ZERO, el test preparado original y el promedio del ensamble. Esta actualización amplía la distribución inicial, que había excluido datos y predicciones.
+
+Se verificaron la integridad de los archivos, las 135.633 filas del test y las métricas de cada semilla. El ensamble reproduce 377 BAJA+2, ganancia de $295.817.500 y AUC de 0,938076981444181. No hay nuevos entrenamientos ni cambios en los resultados. Los binarios se adjuntan a la release; no se agregan al historial de Git. No se incluyen predicciones del control histórico de mediana ni las de Mica.

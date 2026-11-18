@@ -78,7 +78,15 @@ python -m unittest test_ff_variants -v
 
 Los resultados agregados ya están incluidos. No hace falta entrenar para leerlos. Para recalcular la tabla alineada a partir de los CSV incluidos, ejecutar `python analysis/alinear_control_mica.py`. `reproducir.py` ejecuta una nueva corrida local con el control adaptado y requiere una carpeta `run/` nueva. No debe mezclarse con los checkpoints históricos.
 
-Los datos, modelos y predicciones individuales no se publican. Para regenerar el gráfico se necesita `matplotlib==3.10.7` y `python analysis/graficar_resultados.py`.
+Las predicciones de FF_ZERO y su test preparado están disponibles en la release enlazada abajo. El dataset completo de origen y los modelos no se incluyen. Para regenerar el gráfico se necesita `matplotlib==3.10.7` y `python analysis/graficar_resultados.py`.
+
+## Descargar predicciones para comparar ensambles
+
+[Descargar el ZIP de FF + cero](https://github.com/FlorRodriguez1309/experimento-imputacion-ff-cero/releases/download/datos-ff-cero-2026-11-18/ff-cero-predicciones-para-comparar.zip) · [Release y comprobación SHA-256](https://github.com/FlorRodriguez1309/experimento-imputacion-ff-cero/releases/tag/datos-ff-cero-2026-11-18).
+
+Incluye los 30 `test/seed_*/pred_test.npy`, el `prepared/test.parquet` original de octubre (135.633 filas), el promedio en `ensamble/pred_test.npy` y un script de verificación. Cada elemento de los NPY corresponde a la misma fila del parquet; para combinar experimentos, alinear por `numero_de_cliente` y `foto_mes`.
+
+La verificación reproduce **377 BAJA+2 y $295.817.500** con N=4.323. Solo incluye FF_ZERO; las predicciones del control de mediana publicado por Mica no forman parte del paquete. Los archivos binarios se distribuyen como adjuntos de la release, fuera del historial de Git.
 
 ## Archivos
 
