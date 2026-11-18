@@ -32,7 +32,7 @@
 <section id="familias" data-title="Dos familias experimentales" data-source="design">
  <p class="eyebrow">02 / DISEÑO</p><h2>Dos familias,<br>dos condiciones</h2>
  <div class="two family-columns"><div><h3><span class="accent">Experimento 1 (EXP1)</span></h3><p class="family-purpose">Imputación</p><p>150 variables base<br>+ sus lags y deltas</p><div class="specs"><div><b>280</b><small>árboles</small></div><div><b>4.323</b><small>contactos</small></div></div></div><div><h3><span class="accent">Experimento 2 (EXP2)</span></h3><p class="family-purpose">Imputación + indicadores de ausencia</p><p>EXP1 + 150 indicadores<br>+ 300 lags y 300 deltas de indicadores</p><div class="specs"><div><b>361</b><small>árboles</small></div><div><b>4.352</b><small>contactos</small></div></div></div></div>
- <p class="bottom-note">Comparación entre familias: descriptiva. Cambian los predictores, los parámetros y N.</p>
+ <p class="bottom-note">Cada experimento eligió árboles y parámetros con su E0 en validación. Comparar EXP1 y EXP2 no aísla el efecto de los indicadores: también cambian la configuración y N.</p>
 </section>
 <section id="metodos" data-title="Ocho métodos base" data-source="methods">
  <p class="eyebrow">03 / MÉTODOS</p><h2>Ocho formas de tratar<br>los faltantes</h2>
@@ -46,8 +46,8 @@
 </section>
 <section id="metricas" data-title="AUC y ganancia" data-source="metrics" class="dark">
  <p class="eyebrow">04 / EVALUACIÓN</p><h2>AUC y ganancia<br>miden cosas distintas</h2>
- <div class="two editorial"><div><h3>Ranking global</h3><div class="metric-word">AUC</div><p>BAJA+1 y BAJA+2<br>agrupadas como clase positiva</p></div><div><h3>Campaña al top-N</h3><div class="metric-word accent">Ganancia</div><p>Solo BAJA+2 recibe recompensa<br>N congelado en cada familia</p></div></div>
- <p class="bottom-note">Ensamble: ranking del promedio de 30 probabilidades. Su ganancia difiere de la ganancia media por semilla.</p>
+ <div class="two editorial"><div><h3>Calidad del ranking completo</h3><div class="metric-word">AUC</div><p>Qué tan bien ordena a quienes se dan de baja<br>Incluye BAJA+1 y BAJA+2</p></div><div><h3>Resultado de contactar<br>a los primeros N clientes</h3><div class="metric-word accent">Ganancia</div><p>Solo BAJA+2 genera recompensa<br>Los demás contactos tienen costo</p></div></div>
+ <p class="bottom-note">Mejorar el ranking puede aumentar el AUC sin encontrar más BAJA+2 entre los clientes contactados. N es la cantidad fija de contactos.</p>
 </section>
 <section id="inferencia" data-title="Cómo contrastamos" data-source="stats">
  <p class="eyebrow">04 / EVALUACIÓN</p><h2>30 semillas pareadas</h2>
@@ -105,7 +105,7 @@
 <section id="conclusiones" data-title="Conclusiones y próximo experimento" data-source="stats" class="dark">
  <p class="eyebrow">08 / CONCLUSIONES</p><h2>La imputación puede ayudar.<br>Depende de la configuración.</h2>
  <div class="conclusion"><b>Ridge en EXP2</b><p>+5,17 M$ de ganancia media frente a NaN<br><span>p Holm ≈ 0,000117</span></p></div><div class="conclusion"><b>Extensiones de FF</b><p>Sin mejora concluyente de ganancia frente a FF</p></div>
- <div class="next-step"><span>PRÓXIMO EXPERIMENTO</span><strong>Otra ventana temporal</strong><small>Luego: aislar indicadores y comparar ensambles por cliente.</small></div>
+ <div class="next-step"><span>PRÓXIMO EXPERIMENTO</span><strong>Otra ventana temporal</strong><small>Indicadores: comparar con y sin ellos, manteniendo parámetros, árboles y N. Ensambles: comparación por cliente.</small></div>
 </section>
 <section id="fuentes" data-title="Fuentes y reproducción" data-source="bibliography">
  <p class="eyebrow">09 / FUENTES</p><h2>Código, resultados<br>y reproducción</h2>

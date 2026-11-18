@@ -39,3 +39,9 @@ python -m http.server 8765 --directory docs
 Abrir `http://localhost:8765/presentacion/`. El script recalcula los 294 contrastes desde las métricas por semilla y verifica los 26 resúmenes. La opción `--panel` solo imprime agregados de la auditoría temporal. No reentrena modelos ni recalcula predicciones de ensambles.
 
 Si se actualizan resultados, hay que revisar también las cifras destacadas en `index.html` y los textos de `app.js`, conservar la versión fuente y volver a verificar. Esta página representa una versión fija del trabajo.
+
+## Clarificaciones de la presentación
+
+La portada identifica a Agustín Bernacchia, Micaela Rocío Rodríguez y Florencia Rodríguez. La primera aparición de E0 y de EXP1/EXP2 incluye su significado completo. La diapositiva de métricas distingue el ranking completo (AUC, BAJA+1/BAJA+2) de la campaña a N fijo (ganancia, recompensa solo para BAJA+2).
+
+Los 280 y 361 árboles proceden de selecciones independientes sobre el E0 de cada experimento. Comparar EXP1 y EXP2 no aísla el efecto de los indicadores. Queda propuesta una comparación con y sin indicadores y sus derivados usando los mismos datos, semillas, hiperparámetros, árboles y N. No se ejecutaron nuevas corridas para esta actualización editorial.
