@@ -6,6 +6,12 @@ La pregunta es si completar con **cero los faltantes que sobreviven al forward f
 
 **Resultado:** FF + cero alcanza una ganancia media de **291,42 millones de pesos**. Mejora el AUC frente a NaN nativos y forward fill, pero su ventaja económica no es concluyente después del ajuste de Holm.
 
+## Presentación interactiva del grupo
+
+[Abrir la presentación web](https://florrodriguez1309.github.io/experimento-imputacion-ff-cero/presentacion/) · [Verificación metodológica](https://florrodriguez1309.github.io/experimento-imputacion-ff-cero/presentacion/auditoria.html).
+
+19 diapositivas con gráficos interactivos, fuentes y tablas desplegables. Código en [`docs/presentacion/`](docs/presentacion/). Usa el consolidado del 18/11/2026 y sus familias ampliadas de Holm. Los informes originales que siguen conservan sus propios conjuntos de comparaciones, indicados en cada sección.
+
 ## Diseño
 
 - Entrenamiento final: marzo–agosto de 2019. Test: octubre de 2019.

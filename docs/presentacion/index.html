@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¿Imputar mejora? · Experimentos colaborativos</title>
+<meta name="description" content="Imputación de valores faltantes en LightGBM. Resultados interactivos de los experimentos colaborativos de DMEyF, UBA 2026.">
+<meta name="theme-color" content="#f5f2eb">
+<link rel="stylesheet" href="vendor/reveal.css"><link rel="stylesheet" href="style.css">
+<script defer src="vendor/reveal.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+<a class="skip" href="#presentacion">Ir al contenido</a>
+<header class="topbar"><a class="brand" href="#/portada">DMEyF <span>/</span> 2026</a><span class="top-title">EXPERIMENTOS COLABORATIVOS</span><nav aria-label="Herramientas"><button id="index-button">Índice</button><a id="reading-link" href="?lectura=1">Lectura</a><button id="fullscreen-button" aria-label="Pantalla completa">⛶</button></nav></header>
+<main class="reveal" id="presentacion"><div class="slides">
+<section id="portada" data-title="¿Imputar mejora?" data-source="overview" class="cover">
+ <p class="eyebrow">VALORES FALTANTES EN LIGHTGBM</p>
+ <h1>¿Imputar<br><em>mejora?</em></h1>
+ <div class="cover-bottom"><p>La ausencia de un dato<br>también puede contener información.</p><div class="cover-meta">Maestría en Data Mining<br>Universidad de Buenos Aires<br>Noviembre 2026</div></div>
+ <button class="start" data-go="hipotesis">Explorar el experimento <span aria-hidden="true">↗</span></button>
+</section>
+<section id="hipotesis" data-title="La pregunta y las hipótesis" data-source="methods">
+ <p class="eyebrow">01 / PREGUNTA</p><h2>¿Mejora la ganancia<br>frente a NaN nativo?</h2>
+ <div class="two editorial"><div><span class="large-symbol">NaN</span><h3>Ausencia informativa</h3><p>Imputar puede borrar señales<br>que el modelo aprovecha.</p></div><div><span class="large-symbol accent">0 / 1</span><h3>Indicadores de ausencia</h3><p>Una marca explícita puede<br>conservar parte de esa información.</p></div></div>
+ <p class="bottom-note">Hipótesis a contrastar con AUC y ganancia a un número fijo de contactos.</p>
+</section>
+<section id="tiempo" data-title="Diseño temporal" data-source="design">
+ <p class="eyebrow">02 / DISEÑO</p><h2>El tiempo organiza<br>la comparación</h2>
+ <div class="timeline" aria-label="Entrenamiento marzo a agosto, test octubre de 2019"><div class="history">Ene–Feb<small>Historia</small></div><div class="train">Marzo–Agosto<small>Entrenamiento final e imputadores</small></div><div class="history">Sep<small>Historia</small></div><div class="test">Octubre<small>Test</small></div></div>
+ <div class="two compact"><div><h3>Selección en E0</h3><p>50 pruebas de Optuna<br>Train marzo–junio · validación agosto</p></div><div><h3>Comparación congelada</h3><p>Mismos hiperparámetros y N<br>30 semillas comunes por método</p></div></div>
+ <p class="bottom-note">2019. Auditoría compartida de ceros. Noviembre y diciembre definen el target de octubre.</p>
+</section>
+<section id="familias" data-title="Dos familias experimentales" data-source="design">
+ <p class="eyebrow">02 / DISEÑO</p><h2>Dos familias,<br>dos condiciones</h2>
+ <div class="two family-columns"><div><h3><span class="accent">EXP1</span> Imputación</h3><p>150 variables base<br>+ sus lags y deltas</p><div class="specs"><div><b>280</b><small>árboles</small></div><div><b>4.323</b><small>contactos</small></div></div></div><div><h3><span class="accent">EXP2</span> + Ausencia</h3><p>EXP1 + 150 indicadores<br>+ 300 lags y 300 deltas de indicadores</p><div class="specs"><div><b>361</b><small>árboles</small></div><div><b>4.352</b><small>contactos</small></div></div></div></div>
+ <p class="bottom-note">Comparación entre familias: descriptiva. Cambian los predictores, los parámetros y N.</p>
+</section>
+<section id="metodos" data-title="Ocho métodos base" data-source="methods">
+ <p class="eyebrow">03 / MÉTODOS</p><h2>Ocho formas de tratar<br>los faltantes</h2>
+ <div class="method-list"><div><span>E0</span><b>NaN nativo</b><small>El modelo recibe el faltante</small></div><div><span>E4</span><b>Forward fill</b><small>Último valor conocido del cliente</small></div><div><span>E1</span><b>Media</b><small>Aprendida en train</small></div><div><span>E5</span><b>Ridge iterativo</b><small>BayesianRidge con otras variables</small></div><div><span>E2</span><b>Mediana</b><small>Aprendida en train</small></div><div><span>E6</span><b>miceforest</b><small>MICE con LightGBM</small></div><div><span>E3</span><b>Moda</b><small>Aprendida en train</small></div><div><span>E7</span><b>Ceros directos</b><small>Cero en cada faltante base</small></div></div>
+</section>
+<section id="forward-fill" data-title="Forward fill en acción" data-source="ff">
+ <p class="eyebrow">03 / MÉTODOS</p><h2>Primero, la historia<br>del mismo cliente</h2>
+ <div class="demo-toolbar"><span>Ejemplo ilustrativo</span><div class="segmented" role="group" aria-label="Paso de imputación"><button data-demo="0" aria-pressed="true">Original</button><button data-demo="1" aria-pressed="false">Forward fill</button><button data-demo="2" aria-pressed="false">FF + cero</button></div></div>
+ <div id="ff-demo" class="ff-demo" aria-live="polite"></div><p id="ff-explanation" class="demo-explanation"></p>
+ <p class="bottom-note">Otras extensiones: indicadores, mediana previa, mediana posterior y límite de dos filas.</p>
+</section>
+<section id="metricas" data-title="AUC y ganancia" data-source="metrics" class="dark">
+ <p class="eyebrow">04 / EVALUACIÓN</p><h2>AUC y ganancia<br>miden cosas distintas</h2>
+ <div class="two editorial"><div><h3>Ranking global</h3><div class="metric-word">AUC</div><p>BAJA+1 y BAJA+2<br>agrupadas como clase positiva</p></div><div><h3>Campaña al top-N</h3><div class="metric-word accent">Ganancia</div><p>Solo BAJA+2 recibe recompensa<br>N congelado en cada familia</p></div></div>
+ <p class="bottom-note">Ensamble: ranking del promedio de 30 probabilidades. Su ganancia difiere de la ganancia media por semilla.</p>
+</section>
+<section id="inferencia" data-title="Cómo contrastamos" data-source="stats">
+ <p class="eyebrow">04 / EVALUACIÓN</p><h2>30 semillas pareadas</h2>
+ <div class="stat-flow"><div><b>Wilcoxon</b><span>Bilateral, por semilla</span></div><div><b>Holm</b><span>Por familia y métrica</span></div><div><b>α = 0,05</b><span>Umbral de referencia</span></div></div>
+ <div class="comparison-line"><b>vs. NaN</b><span>12 alternativas en EXP1 / 7 en EXP2</span></div><div class="comparison-line"><b>vs. FF</b><span>5 extensiones en EXP1</span></div>
+ <p class="bottom-note">Las semillas comparten clientes y mes. Los contrastes no prueban diferencias entre ensambles ni generalización temporal.</p>
+</section>
+<section id="ganancia" data-title="Ganancia por semilla" data-source="stats" class="chart-slide">
+ <p class="eyebrow">05 / RESULTADOS</p><h2>Ganancia frente a NaN</h2>
+ <div class="chart-toolbar"><p>Diferencia media por semilla · millones de pesos</p><div class="segmented" role="group" aria-label="Experimento para ganancia"><button data-family-chart="EXP1" aria-pressed="true">EXP1</button><button data-family-chart="EXP2" aria-pressed="false">EXP2</button></div></div>
+ <div id="gain-chart" class="chart" aria-live="polite"></div><p id="gain-takeaway" class="takeaway"></p>
+ <p class="bottom-note">El punto indica la diferencia media. p Holm corresponde a Wilcoxon, no a un test de medias.</p>
+</section>
+<section id="ensambles" data-title="Ranking de ensambles" data-source="results" class="chart-slide">
+ <p class="eyebrow">05 / RESULTADOS</p><h2>Los ensambles, por separado</h2>
+ <div class="chart-toolbar"><div class="segmented" role="group" aria-label="Experimento del ensamble"><button data-ensemble-family="EXP1" aria-pressed="true">EXP1</button><button data-ensemble-family="EXP2" aria-pressed="false">EXP2</button></div><div class="segmented" role="group" aria-label="Métrica del ensamble"><button data-ensemble-metric="gain" aria-pressed="true">Ganancia</button><button data-ensemble-metric="auc" aria-pressed="false">AUC</button></div><button class="text-button" data-table="base">Ver tabla</button></div>
+ <div id="ensemble-chart" class="chart" aria-live="polite"></div><p id="ensemble-takeaway" class="takeaway"></p>
+ <p class="bottom-note">Ensamble de 30 semillas. Escala ampliada y declarada para mostrar diferencias pequeñas. Sin test de significación de ensambles.</p>
+</section>
+<section id="variantes" data-title="Cinco extensiones de FF" data-source="stats" class="chart-slide">
+ <p class="eyebrow">05 / RESULTADOS</p><h2>Extensiones frente a FF</h2>
+ <div class="chart-toolbar"><p>EXP1 · diferencia de ganancia media · M$</p><button class="text-button" data-table="ff">Ver tabla completa</button></div>
+ <div id="ff-chart" class="chart" aria-live="polite"></div><p class="takeaway">Ninguna demuestra una mejora de ganancia con Holm.</p>
+ <p class="bottom-note">Cinco comparaciones contra E4. No detectar diferencias no demuestra equivalencia.</p>
+</section>
+<section id="ff-cero" data-title="El resultado de FF + cero" data-source="results" class="dark">
+ <p class="eyebrow">05 / FOCO EN FF + CERO</p><h2>La historia primero.<br>El cero, al final.</h2>
+ <div class="hero-result"><strong data-value="ffGain">295,82</strong><span>M$<small>ganancia del ensamble</small></span></div>
+ <div class="three results-strip"><div><b>377</b><small>BAJA+2 capturadas</small></div><div><b>0,938077</b><small>AUC del ensamble</small></div><div><b>291,42 M$</b><small>ganancia media por semilla</small></div></div>
+ <p class="bottom-note">EXP1, N=4.323. Mayor AUC por semilla que E4 (p Holm=0,0031), sin mejora concluyente de ganancia (p Holm=1).</p>
+</section>
+<section id="medianas" data-title="Dos definiciones de mediana" data-source="ff">
+ <p class="eyebrow">06 / INTERPRETACIÓN</p><h2>El orden cambia<br>la mediana</h2>
+ <div class="two median-columns"><div><h3>Mediana previa</h3><p>Valores observados de train</p><div class="number-sequence"><span>0</span><span>100</span></div><div class="median-result">Mediana <b>50</b></div></div><div><h3>Mediana posterior</h3><p>Train después de forward fill</p><div class="number-sequence"><span>0</span><span class="filled">0</span><span class="filled">0</span><span>100</span></div><div class="median-result">Mediana <b class="accent">0</b></div></div></div>
+ <p class="takeaway">Ambas usan train. Estiman distribuciones distintas.</p><p class="bottom-note">Ejemplo ilustrativo. Conservamos ambas variantes. La mediana posterior es el control compartido de FF + cero.</p>
+</section>
+<section id="limite" data-title="Dos filas no garantizan dos meses" data-source="audit">
+ <p class="eyebrow">06 / INTERPRETACIÓN</p><h2>Dos filas consecutivas</h2><p class="lead">El límite de forward fill cuenta registros faltantes.</p>
+ <div class="calendar-demo" aria-label="Ejemplo: enero tiene 80, mayo y octubre faltantes. El límite de dos filas rellena ambos con 80."><div><small>Enero</small><b>80</b><span>Observado</span></div><span class="gap">4 meses</span><div><small>Mayo</small><b class="accent">80</b><span>1.ª fila faltante</span></div><span class="gap">5 meses</span><div><small>Octubre</small><b class="accent">80</b><span>2.ª fila faltante</span></div></div>
+ <p class="takeaway">El panel real contiene 53 saltos entre registros de más de un mes.</p><p class="bottom-note">Secuencia ilustrativa. La auditoría también detectó valores arrastrados con nueve meses de antigüedad.</p>
+</section>
+<section id="semillas" data-title="Variabilidad entre semillas" data-source="results" class="chart-slide">
+ <p class="eyebrow">06 / INTERPRETACIÓN</p><h2>Un resultado, 30 semillas</h2><div class="chart-toolbar"><p>EXP1 · ganancia de cada modelo · M$</p><span class="legend"><i></i> Semilla <i class="mean-dot"></i> Media</span></div>
+ <div id="seed-chart" class="chart"></div><p class="takeaway">Las variaciones del modelo importan en la comparación.</p><p class="bottom-note">Puntos reales, sin intervalos inventados. Estas semillas comparten el mismo test de octubre.</p>
+</section>
+<section id="discusion" data-title="Lectura de los resultados" data-source="results">
+ <p class="eyebrow">06 / DISCUSIÓN</p><h2>El mejor ranking no siempre<br>da la mayor ganancia</h2>
+ <div class="two result-columns"><div><h3>EXP1</h3><div class="result-pair"><span>Mayor AUC del ensamble</span><b>FF + mediana posterior</b><strong>0,938251</strong></div><div class="result-pair"><span>Mayor ganancia del ensamble</span><b>Ridge y FF + cero</b><strong>295,82 M$</strong></div></div><div><h3>EXP2</h3><div class="result-pair"><span>Mayor AUC del ensamble</span><b>Ceros directos</b><strong>0,937779</strong></div><div class="result-pair"><span>Mayor ganancia del ensamble</span><b>Ridge iterativo</b><strong>297,22 M$</strong></div></div></div>
+</section>
+<section id="limites" data-title="Alcance y sesgos" data-source="limits">
+ <p class="eyebrow">07 / ALCANCE</p><h2>Qué falta para generalizar</h2>
+ <div class="limit-list"><div><b>Un solo mes de test</b><span>Falta replicación temporal.</span></div><div><b>Selección sobre E0</b><span>Los parámetros pueden favorecer al control.</span></div><div><b>Reutilización del test</b><span>Riesgo de decisiones post hoc y confirmación.</span></div><div><b>Ensamble FF</b><span>Falta contrastarlo con predicciones alineadas.</span></div></div>
+ <button class="text-button" data-dialog="historical">Ver histórico marzo–junio</button><p class="bottom-note">El histórico se conserva por separado: cambia el train y falta una identidad completa de la corrida.</p>
+</section>
+<section id="conclusiones" data-title="Conclusiones y próximo experimento" data-source="stats" class="dark">
+ <p class="eyebrow">08 / CONCLUSIONES</p><h2>La imputación puede ayudar.<br>Depende de la configuración.</h2>
+ <div class="conclusion"><b>Ridge en EXP2</b><p>+5,17 M$ de ganancia media frente a NaN<br><span>p Holm ≈ 0,000117</span></p></div><div class="conclusion"><b>Extensiones de FF</b><p>Sin mejora concluyente de ganancia frente a FF</p></div>
+ <div class="next-step"><span>PRÓXIMO EXPERIMENTO</span><strong>Otra ventana temporal</strong><small>Luego: aislar indicadores y comparar ensambles por cliente.</small></div>
+</section>
+<section id="fuentes" data-title="Fuentes y reproducción" data-source="bibliography">
+ <p class="eyebrow">09 / FUENTES</p><h2>Código, resultados<br>y reproducción</h2>
+ <div class="resource-list"><a href="https://agustinberna.github.io/experimentos-colaborativos/consolidado.html" target="_blank" rel="noopener"><span>01</span><b>Dashboard consolidado</b><small>26 combinaciones método / familia ↗</small></a><a href="https://github.com/FlorRodriguez1309/experimento-imputacion-ff-cero" target="_blank" rel="noopener"><span>02</span><b>Experimento FF + cero</b><small>Código y predicciones para ensambles ↗</small></a><button data-dialog="bibliography"><span>03</span><b>Bibliografía y métodos</b><small>Fuentes de la presentación ↗</small></button></div>
+ <p class="closing-question">¿Qué cambia al repetirlo en otro mes?</p>
+</section>
+</div></main>
+<footer class="bottom-bar"><button id="sources-button">Fuentes</button><span id="section-label">VALORES FALTANTES</span><div><button id="prev-button" aria-label="Diapositiva anterior">←</button><span id="counter" aria-live="polite">01 / 19</span><button id="next-button" aria-label="Diapositiva siguiente">→</button></div></footer>
+<div class="progress-track"><div id="progress-fill"></div></div>
+<dialog id="detail-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><h2 id="dialog-title"></h2><button id="close-dialog" aria-label="Cerrar">×</button></div><div id="dialog-content"></div></dialog>
+<noscript><p class="noscript">Activá JavaScript para la navegación y los gráficos. Los resultados completos están en el <a href="https://agustinberna.github.io/experimentos-colaborativos/consolidado.html">dashboard consolidado</a>.</p></noscript>
+</body></html>

@@ -1,0 +1,54 @@
+{
+  "panel_rows": 1563565,
+  "clients": 146623,
+  "calendar_gaps": 53,
+  "max_gap_months": 11,
+  "examples_aggregate_only": [
+    {
+      "variable": "mrentabilidad",
+      "n_filled_beyond_two_calendar_months": 9,
+      "max_age_months": 9,
+      "months": [
+        201905,
+        201910
+      ]
+    },
+    {
+      "variable": "mrentabilidad_annual",
+      "n_filled_beyond_two_calendar_months": 9,
+      "max_age_months": 9,
+      "months": [
+        201905,
+        201910
+      ]
+    },
+    {
+      "variable": "mcomisiones",
+      "n_filled_beyond_two_calendar_months": 9,
+      "max_age_months": 9,
+      "months": [
+        201905,
+        201910
+      ]
+    },
+    {
+      "variable": "mactivos_margen",
+      "n_filled_beyond_two_calendar_months": 9,
+      "max_age_months": 9,
+      "months": [
+        201905,
+        201910
+      ]
+    },
+    {
+      "variable": "mpasivos_margen",
+      "n_filled_beyond_two_calendar_months": 9,
+      "max_age_months": 9,
+      "months": [
+        201905,
+        201910
+      ]
+    }
+  ],
+  "method": "forward_fill(limit=2) per client on sorted original panel; age in calendar months"
+}
